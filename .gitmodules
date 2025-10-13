@@ -1,0 +1,3 @@
+[submodule "vim/config/pack/everforest/start/everforest"]
+	path = vim/config/pack/everforest/start/everforest
+	url = https://github.com/sainnhe/everforest.git

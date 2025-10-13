@@ -1,0 +1,12 @@
+- defaults:
+    link:
+      relink: true
+
+- clean: ['~']
+
+- link:
+    ~/.bashrc:
+      path: bash/bashrc
+      force: true
+    ~/.vim:
+      path: vim/config

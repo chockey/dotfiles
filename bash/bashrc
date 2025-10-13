@@ -1,0 +1,74 @@
+# .bashrc
+
+# Colors for printf usage later
+reset=$(tput sgr0)
+
+black=$(tput setaf 0)
+red=$(tput setaf 1)
+green=$(tput setaf 2)
+yellow=$(tput setaf 3)
+blue=$(tput setaf 4)
+magenta=$(tput setaf 5)
+cyan=$(tput setaf 6)
+white=$(tput setaf 7)
+gray=$(tput setaf 8)
+
+light_red=$(tput setaf 9)
+light_green=$(tput setaf 10)
+light_yellow=$(tput setaf 11)
+light_blue=$(tput setaf 12)
+light_magenta=$(tput setaf 13)
+light_cyan=$(tput setaf 14)
+light_gray=$(tput setaf 15)
+
+bold=$(tput bold)
+dim=$(tput dim)
+
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+    . /etc/bashrc
+fi
+
+# User specific environment
+if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
+    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
+fi
+export PATH
+
+if [ -d $HOME/.cargo/bin ]; then
+    export PATH="${HOME}/.cargo/bin:${PATH}"
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+
+# User specific aliases and functions
+if [ -d ~/.bashrc.d ]; then
+    for rc in ~/.bashrc.d/*; do
+        if [ -f "$rc" ]; then
+            . "$rc"
+        fi
+    done
+fi
+unset rc
+
+function prompt_err {
+    err=$?
+    if [ "$err" -ne 0 ]; then
+        echo " ${red}${bold}(err: $err)${reset}"
+    fi
+}
+
+function prompt_cmd {
+    error_text=$(prompt_err)
+
+    PS1="${gray}\t${reset}"
+    PS1+=" ${green}\u${yellow}@\h${reset}"
+    PS1+=":${blue}\w${reset}"
+    PS1+="${error_text}"
+
+    PS1+="\n\$ "
+    export PS1
+}
+export PROMPT_COMMAND=prompt_cmd
