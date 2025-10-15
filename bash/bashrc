@@ -24,6 +24,14 @@ light_gray=$(tput setaf 15)
 bold=$(tput bold)
 dim=$(tput dim)
 
+UTILS_DIR="${HOME}/.local/share/bash-utils"
+
+function source_if_exists() {
+    file=$1
+    if [ -f "$1" ]; then
+        source "$1"
+    fi
+}
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -53,6 +61,9 @@ if [ -d ~/.bashrc.d ]; then
 fi
 unset rc
 
+source_if_exists "${UTILS_DIR}/git-completion.bash"
+source_if_exists "${UTILS_DIR}/git-prompt.sh"
+
 function prompt_err {
     err=$?
     if [ "$err" -ne 0 ]; then
@@ -60,12 +71,21 @@ function prompt_err {
     fi
 }
 
+
+export GIT_PS1_DESCRIBE_STYLE='default'
+export GIT_PS1_SHOWUPSTREAM='auto'
+export GIT_PS1_SHOWCOLORHINTS=true
+export GIT_PS1_SHOWDIRTYSTATE=true
+export GIT_PS1_SHOWUNTRACKEDFILES=true
+
 function prompt_cmd {
     error_text=$(prompt_err)
+
 
     PS1="${gray}\t${reset}"
     PS1+=" ${green}\u${yellow}@\h${reset}"
     PS1+=":${blue}\w${reset}"
+    PS1+=" $(__git_ps1 "${green}(${reset}%s${green})${reset}")"
     PS1+="${error_text}"
 
     PS1+="\n\$ "

@@ -8,5 +8,9 @@
     ~/.bashrc:
       path: bash/bashrc
       force: true
+    ~/.local/share/bash-utils/:
+      glob: true
+      create: true
+      path: bash/utils/*
     ~/.vim:
       path: vim/config
