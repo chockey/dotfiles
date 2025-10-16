@@ -13,6 +13,6 @@
       create: true
       path: bash/utils/*
     ~/.vim:
-      path: vim/config
+      path: vim
     ~/.gitconfig:
       path: git/gitconfig
