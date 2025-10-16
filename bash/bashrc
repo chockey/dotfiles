@@ -105,7 +105,7 @@ function git_prompt {
 
         # Modified/Added
         if echo "$status" | grep --quiet "^.[MADRT].*"; then
-            status_block+="${yellow}M${reset}"
+            status_block+="${light_yellow}M${reset}"
         fi
 
         # Cached Modified/Added

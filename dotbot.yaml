@@ -14,3 +14,5 @@
       path: bash/utils/*
     ~/.vim:
       path: vim/config
+    ~/.gitconfig:
+      path: git/gitconfig
