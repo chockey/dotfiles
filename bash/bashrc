@@ -26,6 +26,8 @@ dim=$(tput dim)
 
 UTILS_DIR="${HOME}/.local/share/bash-utils"
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 function source_if_exists() {
     file=$1
     if [ -f "$1" ]; then
@@ -73,7 +75,6 @@ function prompt_err {
 function git_prompt {
     info=$(git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD 2>/dev/null)
     if [ -z "$info" ]; then
-        echo ""
         return
     fi
 
@@ -122,14 +123,35 @@ function git_prompt {
     echo "$prompt_str"
 }
 
+function python_prompt {
+    if [ -z "$VIRTUAL_ENV" ]; then
+        return
+    fi
+
+    prompt_str=" ${magenta}{py:"
+
+    # If a hidden directory, use the parent name, if not, use the
+    # venv directory name
+    if [[ "$VIRTUAL_ENV" =~ .*/\..* ]]; then
+        prompt_str+=$(basename $(dirname $VIRTUAL_ENV))
+    else
+        prompt_str+=$(basename $VIRTUAL_ENV)
+    fi
+
+    prompt_str+="}${reset}"
+    echo "${prompt_str}"
+}
+
 function prompt_cmd {
     local error_text=$(prompt_err)
     local git_text=$(git_prompt)
+    local py_venv_text=$(python_prompt)
 
     PS1="${gray}\t${reset}"
     PS1+=" ${green}\u${yellow}@\h${reset}"
     PS1+=":${blue}\w${reset}"
     PS1+="${git_text}"
+    PS1+="${py_venv_text}"
     PS1+="${error_text}"
 
     PS1+="\n\$ "
