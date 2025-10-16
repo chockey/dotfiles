@@ -62,7 +62,6 @@ fi
 unset rc
 
 source_if_exists "${UTILS_DIR}/git-completion.bash"
-source_if_exists "${UTILS_DIR}/git-prompt.sh"
 
 function prompt_err {
     err=$?
@@ -71,21 +70,66 @@ function prompt_err {
     fi
 }
 
+function git_prompt {
+    info=$(git rev-parse --git-dir --is-inside-git-dir --is-bare-repository --is-inside-work-tree --short HEAD 2>/dev/null)
+    if [ -z "$info" ]; then
+        echo ""
+        return
+    fi
 
-export GIT_PS1_DESCRIBE_STYLE='default'
-export GIT_PS1_SHOWUPSTREAM='auto'
-export GIT_PS1_SHOWCOLORHINTS=true
-export GIT_PS1_SHOWDIRTYSTATE=true
-export GIT_PS1_SHOWUNTRACKEDFILES=true
+    local prompt_str=" ${cyan}["
+
+    local git_dir=$(printf %s "$info" | head -n1 | tail -1)
+    local inside_git_dir=$(printf %s "$info" | head -n2 | tail -1)
+    local is_bare_repo=$(printf %s "$info" | head -n3 | tail -1)
+    local inside_work_dir=$(printf %s "$info" | head -n4 | tail -1)
+    local short_hash=$(printf %s "$info" | head -n5 | tail -1)
+
+    local branch="$(git symbolic-ref --short HEAD 2>/dev/null)"
+
+    if [ -n "$branch" ]; then
+        prompt_str+="${branch}${reset}"
+    else
+        prompt_str+="${short_hash}...${reset}"
+    fi
+
+    local status=$(git status --short)
+    if [ -n "$status" ]; then
+        status_block=""
+
+        # Untracked
+        if echo "$status" | grep --quiet "^?.*"; then
+            status_block+="${red}U${reset}"
+        fi
+
+        # Modified/Added
+        if echo "$status" | grep --quiet "^.[MADRT].*"; then
+            status_block+="${yellow}M${reset}"
+        fi
+
+        # Cached Modified/Added
+        if echo "$status" | grep --quiet "^[MADRT].*"; then
+            status_block+="${green}S${reset}"
+        fi
+
+        if [ -n "$status_block" ]; then
+            prompt_str+=" ${status_block}"
+        fi
+    fi
+
+    prompt_str+="${cyan}]${reset}"
+
+    echo "$prompt_str"
+}
 
 function prompt_cmd {
-    error_text=$(prompt_err)
-
+    local error_text=$(prompt_err)
+    local git_text=$(git_prompt)
 
     PS1="${gray}\t${reset}"
     PS1+=" ${green}\u${yellow}@\h${reset}"
     PS1+=":${blue}\w${reset}"
-    PS1+=" $(__git_ps1 "${green}(${reset}%s${green})${reset}")"
+    PS1+="${git_text}"
     PS1+="${error_text}"
 
     PS1+="\n\$ "
