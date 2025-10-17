@@ -65,6 +65,11 @@ unset rc
 
 source_if_exists "${UTILS_DIR}/git-completion.bash"
 
+if [ -d $HOME/.local/opt/vcpkg ]; then
+    export VCPKG_ROOT=$HOME/.local/opt/vcpkg
+    export PATH=$PATH:$VCPKG_ROOT
+fi
+
 function prompt_err {
     err=$?
     if [ "$err" -ne 0 ]; then
@@ -158,3 +163,11 @@ function prompt_cmd {
     export PS1
 }
 export PROMPT_COMMAND=prompt_cmd
+
+function command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+if command_exists bat; then
+    alias cat=bat
+fi
