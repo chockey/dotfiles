@@ -1,6 +1,9 @@
 " Enabling filetype support provides filetype-specific indenting,
 " syntax highlighting, omni-completion and other useful settings.
 filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab
 syntax on
 
 call mkdir($HOME . "/.cache/vim", "p")
