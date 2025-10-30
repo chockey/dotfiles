@@ -171,3 +171,7 @@ function command_exists() {
 if command_exists bat; then
     alias cat=bat
 fi
+
+if command_exists ninja; then
+    export CMAKE_GENERATOR=Ninja
+fi
