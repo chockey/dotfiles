@@ -1,5 +1,8 @@
 [init]
-	defaultBranch = main
+    defaultBranch = main
 [user]
-	email = cjhockey@gmail.com
-	name = Collin Hockey
+    email = cjhockey@gmail.com
+    name = Collin Hockey
+[alias]
+    ls = log --oneline --graph --decorate --all
+
