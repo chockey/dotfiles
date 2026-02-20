@@ -37,7 +37,15 @@ function cmd_exists() {
 }
 
 function install_or_update_dotbot() {
-    python3 -m pip install --user --upgrade dotbot
+    # Make sure the new local dir is on the path
+    export PATH=$HOME/.local/bin:$PATH
+
+    if cmd_exists dotbot; then
+        pipx upgrade dotbot
+    else
+        pipx install dotbot
+    fi
+
 }
 
 function install_or_update_rust() {
