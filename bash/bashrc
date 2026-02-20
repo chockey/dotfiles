@@ -1,28 +1,30 @@
 # .bashrc
 
 # Colors for printf usage later
-reset=$(tput sgr0)
+if [[ $TERM == *"color"* ]]; then
+    reset=$(tput sgr0)
 
-black=$(tput setaf 0)
-red=$(tput setaf 1)
-green=$(tput setaf 2)
-yellow=$(tput setaf 3)
-blue=$(tput setaf 4)
-magenta=$(tput setaf 5)
-cyan=$(tput setaf 6)
-white=$(tput setaf 7)
-gray=$(tput setaf 8)
+    black=$(tput setaf 0)
+    red=$(tput setaf 1)
+    green=$(tput setaf 2)
+    yellow=$(tput setaf 3)
+    blue=$(tput setaf 4)
+    magenta=$(tput setaf 5)
+    cyan=$(tput setaf 6)
+    white=$(tput setaf 7)
+    gray=$(tput setaf 8)
 
-light_red=$(tput setaf 9)
-light_green=$(tput setaf 10)
-light_yellow=$(tput setaf 11)
-light_blue=$(tput setaf 12)
-light_magenta=$(tput setaf 13)
-light_cyan=$(tput setaf 14)
-light_gray=$(tput setaf 15)
+    light_red=$(tput setaf 9)
+    light_green=$(tput setaf 10)
+    light_yellow=$(tput setaf 11)
+    light_blue=$(tput setaf 12)
+    light_magenta=$(tput setaf 13)
+    light_cyan=$(tput setaf 14)
+    light_gray=$(tput setaf 15)
 
-bold=$(tput bold)
-dim=$(tput dim)
+    bold=$(tput bold)
+    dim=$(tput dim)
+fi
 
 UTILS_DIR="${HOME}/.local/share/bash-utils"
 
@@ -36,6 +38,9 @@ function source_if_exists() {
 }
 
 # Source global definitions
+source_if_exists /etc/bashrc
+source_if_exists /etc/bash.bashrc
+
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
 fi
@@ -53,7 +58,7 @@ fi
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
 
-# User specific aliases and functions
+# Local aliases and functions
 if [ -d ~/.bashrc.d ]; then
     for rc in ~/.bashrc.d/*; do
         if [ -f "$rc" ]; then
@@ -64,6 +69,13 @@ fi
 unset rc
 
 source_if_exists "${UTILS_DIR}/git-completion.bash"
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+fi
 
 if [ -d $HOME/.local/opt/vcpkg ]; then
     export VCPKG_ROOT=$HOME/.local/opt/vcpkg
@@ -175,3 +187,12 @@ fi
 if command_exists ninja; then
     export CMAKE_GENERATOR=Ninja
 fi
+
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
