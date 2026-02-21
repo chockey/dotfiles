@@ -51,7 +51,7 @@ if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
 fi
 export PATH
 
-if [ -d $HOME/.cargo/bin ]; then
+if [ -d "$HOME/.cargo/bin" ]; then
     export PATH="${HOME}/.cargo/bin:${PATH}"
 fi
 
@@ -77,9 +77,9 @@ if ! shopt -oq posix; then
     fi
 fi
 
-if [ -d $HOME/.local/opt/vcpkg ]; then
-    export VCPKG_ROOT=$HOME/.local/opt/vcpkg
-    export PATH=$PATH:$VCPKG_ROOT
+if [ -d "$HOME/.local/opt/vcpkg" ]; then
+    export VCPKG_ROOT="$HOME/.local/opt/vcpkg"
+    export PATH="$PATH:$VCPKG_ROOT"
 fi
 
 function prompt_err {
@@ -150,9 +150,9 @@ function python_prompt {
     # If a hidden directory, use the parent name, if not, use the
     # venv directory name
     if [[ "$VIRTUAL_ENV" =~ .*/\..* ]]; then
-        prompt_str+=$(basename $(dirname $VIRTUAL_ENV))
+        prompt_str+=$(basename "$(dirname "$VIRTUAL_ENV")")
     else
-        prompt_str+=$(basename $VIRTUAL_ENV)
+        prompt_str+=$(basename "$VIRTUAL_ENV")
     fi
 
     prompt_str+="}${reset}"
