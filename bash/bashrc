@@ -2,28 +2,28 @@
 
 # Colors for printf usage later
 if [[ $TERM == *"color"* ]]; then
-    reset=$(tput sgr0)
+    reset="\[$(tput sgr0)\]"
 
-    black=$(tput setaf 0)
-    red=$(tput setaf 1)
-    green=$(tput setaf 2)
-    yellow=$(tput setaf 3)
-    blue=$(tput setaf 4)
-    magenta=$(tput setaf 5)
-    cyan=$(tput setaf 6)
-    white=$(tput setaf 7)
-    gray=$(tput setaf 8)
+    black="\[$(tput setaf 0)\]"
+    red="\[$(tput setaf 1)\]"
+    green="\[$(tput setaf 2)\]"
+    yellow="\[$(tput setaf 3)\]"
+    blue="\[$(tput setaf 4)\]"
+    magenta="\[$(tput setaf 5)\]"
+    cyan="\[$(tput setaf 6)\]"
+    white="\[$(tput setaf 7)\]"
+    gray="\[$(tput setaf 8)\]"
 
-    light_red=$(tput setaf 9)
-    light_green=$(tput setaf 10)
-    light_yellow=$(tput setaf 11)
-    light_blue=$(tput setaf 12)
-    light_magenta=$(tput setaf 13)
-    light_cyan=$(tput setaf 14)
-    light_gray=$(tput setaf 15)
+    light_red="\[$(tput setaf 9)\]"
+    light_green="\[$(tput setaf 10)\]"
+    light_yellow="\[$(tput setaf 11)\]"
+    light_blue="\[$(tput setaf 12)\]"
+    light_magenta="\[$(tput setaf 13)\]"
+    light_cyan="\[$(tput setaf 14)\]"
+    light_gray="\[$(tput setaf 15)\]"
 
-    bold=$(tput bold)
-    dim=$(tput dim)
+    bold="\[$(tput bold)\]"
+    dim="\[$(tput dim)\]"
 fi
 
 UTILS_DIR="${HOME}/.local/share/bash-utils"
