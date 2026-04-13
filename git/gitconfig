@@ -4,5 +4,8 @@
     email = cjhockey@gmail.com
     name = Collin Hockey
 [alias]
-    ls = log --oneline --graph --decorate --all
+    ll  = log --graph --decorate --date=relative --format=format:'%C(auto,bold blue)%h%C(auto,reset) - %C(auto,bold green)(%ar)%C(auto,reset) %C(auto,white)%s%C(auto,reset) %C(auto,dim white)- %an <%ae>%C(auto,reset)%C(auto,bold yellow)%d%C(auto,reset)%n%b' --all
+    ls  = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(auto,bold blue)%h%C(auto,reset) - %C(auto,bold green)(%ar)%C(auto,reset) %C(auto,white)%s%C(auto,reset) %C(auto,dim white)- %an <%ae>%C(auto,reset)%C(auto,bold yellow)%d%C(auto,reset)' --all
+[include]
+    path = .gitconfig-work
 
