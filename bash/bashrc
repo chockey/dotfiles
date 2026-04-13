@@ -1,4 +1,13 @@
 # .bashrc
+# Append to the history file, don't overwrite it
+shopt -s histappend
+
+# Save multi-line commands as one command
+shopt -s cmdhist
+
+# Increase history sizes
+export HISTSIZE=100000
+export HISTFILESIZE=200000
 
 # Colors for printf usage later
 if [[ $TERM == *"color"* ]]; then
@@ -41,10 +50,6 @@ function source_if_exists() {
 source_if_exists /etc/bashrc
 source_if_exists /etc/bash.bashrc
 
-if [ -f /etc/bashrc ]; then
-    . /etc/bashrc
-fi
-
 # User specific environment
 if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]; then
     PATH="$HOME/.local/bin:$HOME/bin:$PATH"
@@ -54,6 +59,9 @@ export PATH
 if [ -d "$HOME/.cargo/bin" ]; then
     export PATH="${HOME}/.cargo/bin:${PATH}"
 fi
+
+export GOROOT="${HOME}/.local/share/go"
+export GOPATH="${HOME}/.local/share/gopath"
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -147,9 +155,9 @@ function python_prompt {
 
     prompt_str=" ${magenta}{py:"
 
-    # If a hidden directory, use the parent name, if not, use the
+    # If a hidden directory (or just 'venv'), use the parent dir name, if not, use the
     # venv directory name
-    if [[ "$VIRTUAL_ENV" =~ .*/\..* ]]; then
+    if [[ "$VIRTUAL_ENV" =~ .*/\..* || "$VIRTUAL_ENV" =~ .*/venv ]]; then
         prompt_str+=$(basename "$(dirname "$VIRTUAL_ENV")")
     else
         prompt_str+=$(basename "$VIRTUAL_ENV")
@@ -186,6 +194,10 @@ fi
 
 if command_exists ninja; then
     export CMAKE_GENERATOR=Ninja
+fi
+
+if command_exists fzf; then
+    eval "$(fzf --bash)"
 fi
 
 alias ls='ls --color=auto'
