@@ -183,6 +183,9 @@ function prompt_cmd {
 
     PS1+="\n\$ "
     export PS1
+
+    # Append history after every command, not just exit
+    history -a
 }
 export PROMPT_COMMAND=prompt_cmd
 
