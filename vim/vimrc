@@ -1,6 +1,7 @@
 " Enabling filetype support provides filetype-specific indenting,
 " syntax highlighting, omni-completion and other useful settings.
 filetype plugin indent on
+set t_Co=256
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -26,6 +27,7 @@ set ruler                      " Shows the current line number at the bottom-rig
 set wildmenu                   " Great command-line completion, use `<Tab>` to move
                                " around and `<CR>` to validate.
 colorscheme everforest         " Everforest colortheme
+set background=dark
 set colorcolumn=81             " Line on the righthand side for 81st column
 set number relativenumber      " Hybrid line numbering mode
 
