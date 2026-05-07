@@ -205,6 +205,12 @@ if command_exists fzf; then
     eval "$(fzf --bash)"
 fi
 
+if command_exists vim; then
+    export EDITOR=vim
+else
+    export EDITOR=vi
+fi
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
