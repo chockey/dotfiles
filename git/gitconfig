@@ -9,3 +9,5 @@
 [include]
     path = .gitconfig-work
 
+[core]
+	excludesFile = ~/.gitignore
