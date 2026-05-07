@@ -14,5 +14,12 @@
       path: bash/utils/*
     ~/.vim:
       path: vim
+    ~/.config/zellij:
+      path: zellij
+      force: true
     ~/.gitconfig:
       path: git/gitconfig
+    ~/.config/alacritty:
+      create: true
+      force: true
+      path: alacritty
