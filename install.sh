@@ -17,6 +17,7 @@ CARGO_TOOLS=(
     bat
     ripgrep
     fd-find
+    eza
 )
 
 GO_VERSION=1.26.2

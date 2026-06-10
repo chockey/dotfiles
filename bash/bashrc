@@ -193,8 +193,20 @@ function command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ll='ls -alF'
+alias la='ls -A'
+
 if command_exists bat; then
     alias cat=bat
+fi
+
+if command_exists eza; then
+    alias ls='eza'
+    alias tree='eza -T'
 fi
 
 if command_exists ninja; then
@@ -211,11 +223,4 @@ else
     export EDITOR=vi
 fi
 
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
