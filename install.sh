@@ -18,6 +18,7 @@ CARGO_TOOLS=(
     ripgrep
     fd-find
     eza
+    zellij
 )
 
 GO_VERSION=1.26.2
@@ -122,7 +123,7 @@ function install_go_tools() {
 
 function install_cargo_tools() {
     for tool in "${CARGO_TOOLS[@]}"; do
-        "$HOME/.cargo/bin/cargo" install "${tool}"
+        "$HOME/.cargo/bin/cargo" install --locked "${tool}"
     done
 }
 
