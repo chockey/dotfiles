@@ -4,6 +4,9 @@ program = "zellij"
 args = ["-l", "welcome"]
 
 [window]
+opacity=0.8
+blur=true
+
 [window.dimensions]
 columns=180
 lines=50
