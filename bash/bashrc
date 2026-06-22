@@ -222,6 +222,10 @@ if command_exists fzf; then
       --border="rounded" --border-label="" --preview-window="border-rounded" --prompt="> "
       --marker=">" --pointer="◆" --separator="─" --scrollbar="│"'
     eval "$(fzf --bash)"
+
+    # Use Ctrl+F instead of Ctrl+T for file find to deconflict with
+    # zellij tab controls
+    bind -x '"\C-f": fzf-file-widget'
 fi
 
 if command_exists vim; then
