@@ -24,8 +24,9 @@ CARGO_TOOLS=(
 GO_VERSION=1.26.2
 declare -a GO_TOOLS
 GO_TOOLS=(
-    github.com/junegunn/fzf@latest
     github.com/jesseduffield/lazydocker@latest
+    github.com/jesseduffield/lazygit@latest
+    github.com/junegunn/fzf@latest
     github.com/wagoodman/dive@latest
 )
 
