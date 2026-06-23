@@ -6,6 +6,7 @@
 [alias]
     ll  = log --graph --decorate --date=relative --format=format:'%C(auto,bold blue)%h%C(auto,reset) - %C(auto,bold green)(%ar)%C(auto,reset) %C(auto,white)%s%C(auto,reset) %C(auto,dim white)- %an <%ae>%C(auto,reset)%C(auto,bold yellow)%d%C(auto,reset)%n%b' --all
     ls  = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(auto,bold blue)%h%C(auto,reset) - %C(auto,bold green)(%ar)%C(auto,reset) %C(auto,white)%s%C(auto,reset) %C(auto,dim white)- %an <%ae>%C(auto,reset)%C(auto,bold yellow)%d%C(auto,reset)' --all
+    branches = for-each-ref --sort=-committerdate --format=\"%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)\" refs/remotes
 [include]
     path = .gitconfig-work
 
@@ -13,3 +14,9 @@
 	excludesFile = ~/.gitignore
 [credential]
 	helper = store
+[pull]
+    rebase = true
+[rebase]
+    autosquash = true
+[merge]
+    ff = only
