@@ -87,6 +87,11 @@ if ! shopt -oq posix; then
     fi
 fi
 
+if [ -e "${UTILS_DIR}/fzf-tab-completion.sh" ]; then
+    source "${UTILS_DIR}/fzf-tab-completion.sh"
+    bind -x '"\t": fzf_bash_completion'
+fi
+
 if [ -d "$HOME/.local/opt/vcpkg" ]; then
     export VCPKG_ROOT="$HOME/.local/opt/vcpkg"
     export PATH="$PATH:$VCPKG_ROOT"
@@ -226,6 +231,10 @@ if command_exists fzf; then
     # Use Ctrl+F instead of Ctrl+T for file find to deconflict with
     # zellij tab controls
     bind -x '"\C-f": fzf-file-widget'
+fi
+
+if command_exists lazygit; then
+    alias lg=lazygit
 fi
 
 if command_exists vim; then

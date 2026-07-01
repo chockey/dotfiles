@@ -138,6 +138,9 @@ export PATH=${LOCAL_PREFIX}/bin:$PATH
 export GOROOT=${LOCAL_PREFIX}/share/go
 export GOPATH=${LOCAL_PREFIX}/share/gopath
 
+progress_msg "Fetching submodules..."
+git submodule update --init --recursive
+
 progress_msg "Ensuring we're ready for setup..."
 ensure_dirs
 ensure_cmds
