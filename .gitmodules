@@ -1,6 +1,3 @@
 [submodule "vim/config/pack/everforest/start/everforest"]
 	path = vim/pack/everforest/start/everforest
 	url = https://github.com/sainnhe/everforest.git
-[submodule "extern/fzf-tab-completion.git"]
-	path = extern/fzf-tab-completion
-	url = git@github.com:lincheney/fzf-tab-completion.git
