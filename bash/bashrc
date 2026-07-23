@@ -201,7 +201,8 @@ alias ll='ls -alF'
 alias la='ls -A'
 
 if command_exists bat; then
-    alias cat=bat
+    # --plain turns off line numbers
+    alias cat='bat --plain'
 fi
 
 if command_exists eza; then
