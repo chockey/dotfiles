@@ -12,8 +12,6 @@
       glob: true
       create: true
       path: bash/utils/*
-    ~/.local/share/bash-utils/fzf-tab-completion.sh:
-      path: extern/fzf-tab-completion/bash/fzf-bash-completion.sh
     ~/.vim:
       path: vim
     ~/.config/zellij:
