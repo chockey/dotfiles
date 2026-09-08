@@ -12,8 +12,6 @@
 
 [core]
 	excludesFile = ~/.gitignore
-[credential]
-	helper = store
 [pull]
     rebase = true
 [rebase]
