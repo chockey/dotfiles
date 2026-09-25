@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# ==============================================================================
+# Update Everything Script (Ubuntu & Fedora Compatible)
+# ==============================================================================
+# Designed for shared dotfiles. Gracefully skips missing tools.
+# Ensures all system, universal, package, and environment updaters run safely.
+
+set -euo pipefail
+
+# Text Formatting Helpers
+info() { echo -e "\033[1;34m[INFO]\033[0m $*"; }
+success() { echo -e "\033[1;32m[SUCCESS]\033[0m $*"; }
+
+# Command presence check
+has_cmd() { command -v "$1" >/dev/null 2>&1; }
+
+info "Starting system and developer tooling updates..."
+
+# ------------------------------------------------------------------------------
+# 1. System Package Managers
+# ------------------------------------------------------------------------------
+if has_cmd apt; then
+    info "Updating APT packages..."
+    sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+elif has_cmd dnf; then
+    info "Updating DNF packages..."
+    sudo dnf upgrade --refresh -y && sudo dnf autoremove -y
+fi
+
+# ------------------------------------------------------------------------------
+# 2. Universal Packages
+# ------------------------------------------------------------------------------
+if has_cmd flatpak; then
+    info "Updating Flatpaks..."
+    flatpak update -y && flatpak uninstall --unused -y
+fi
+
+if has_cmd snap; then
+    info "Updating Snaps..."
+    sudo snap refresh
+fi
+
+# ------------------------------------------------------------------------------
+# 3. Language & Runtime Managers (Rustup & uv)
+# ------------------------------------------------------------------------------
+if has_cmd rustup; then
+    info "Updating Rust toolchains..."
+    rustup update
+    
+    # Optional: If cargo-update is installed, update binaries built via cargo
+    if cargo install --list | grep -q 'cargo-update'; then
+        info "Updating cargo-installed binaries..."
+        cargo install-update -a
+    fi
+fi
+
+if has_cmd uv; then
+    info "Updating uv toolchain and managed tools..."
+    uv tool upgrade --all
+fi
+
+# ------------------------------------------------------------------------------
+# 4. Third-Party Ecosystems
+# ------------------------------------------------------------------------------
+if has_cmd brew; then
+    info "Updating Homebrew packages..."
+    brew update && brew upgrade && brew cleanup
+fi
+
+if has_cmd pipx; then
+    info "Updating pipx-managed applications..."
+    pipx upgrade-all
+fi
+
+if has_cmd npm; then
+    info "Updating global npm packages..."
+    npm update -g
+fi
+
+success "All available ecosystems updated successfully!"

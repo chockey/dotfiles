@@ -12,6 +12,10 @@
       glob: true
       create: true
       path: bash/utils/*
+    ~/.local/bin/:
+      glob: true
+      create: true
+      path: bin/*
     ~/.vim:
       path: vim
     ~/.config/zellij:
