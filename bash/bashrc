@@ -62,8 +62,16 @@ if [ -d "$HOME/.cargo/bin" ]; then
     export PATH="${HOME}/.cargo/bin:${PATH}"
 fi
 
-export GOROOT="${HOME}/.local/share/go"
-export GOPATH="${HOME}/.local/share/gopath"
+if [ -d "$HOME/.local/share/go" ]; then
+  export GOROOT="${HOME}/.local/share/go"
+  export GOPATH="${HOME}/.local/share/gopath"
+fi
+
+if [ -d "$HOME/.nvm" ]; then
+    export NVM_DIR="$HOME/.nvm"
+    source_if_exists $NVM_DIR/nvm.sh
+    source_if_exists $NVM_DIR/bash_completion
+fi
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
 # export SYSTEMD_PAGER=
@@ -200,6 +208,10 @@ alias egrep='egrep --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 
+function qopen() {
+    open "$@" > /dev/null 2>&1
+}
+
 if command_exists bat; then
     # --plain turns off line numbers
     alias cat='bat --plain'
@@ -238,5 +250,4 @@ if command_exists vim; then
 else
     export EDITOR=vi
 fi
-
 
